@@ -4,13 +4,10 @@
 Client Module for send data
 """
 
-import os
+# Libraries
 import json
 import websockets
-import asyncio
-from dotenv import load_dotenv
 
-load_dotenv()
 
 async def wsrun(uri):
     """
@@ -21,7 +18,6 @@ async def wsrun(uri):
         request = {
             'action': 'onMessage_test',
             'body': '1234556778',
-            'client': os.getenv('SERVER_NAME'),
         }
         await websocket.send(json.dumps(request))
 
@@ -29,8 +25,3 @@ async def wsrun(uri):
             print('data - ')
             response = await websocket.recv()
             print('[Server]# {}'.format(response))
-
-
-asyncio.get_event_loop().run_until_complete(
-    wsrun(os.getenv('WS_HOST'))
-)
